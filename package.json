@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "start": "node build/",
+    "start": "node build/src/",
     "test": "yarn test:unit && yarn test:features",
     "test:unit": "jest",
     "test:features": "NODE_ENV=test cucumber-js -p api",
@@ -18,8 +18,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "joi": "^17.4.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.13.3",
     "morgan": "^1.10.0",
     "swagger-jsdoc": "^6.1.0",
     "swagger-ui-express": "^4.1.6",
@@ -28,6 +33,7 @@
   },
   "devDependencies": {
     "@cucumber/cucumber": "^7.3.1",
+    "@types/bcryptjs": "^2.4.2",
     "@types/cors": "^2.8.12",
     "@types/jest": "^26.0.24",
     "@types/morgan": "^1.9.3",

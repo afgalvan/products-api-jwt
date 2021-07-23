@@ -8,8 +8,8 @@ import swaggerJsDoc from 'swagger-jsdoc';
 import swaggerUI from 'swagger-ui-express';
 import { Server } from 'typescript-rest';
 
-import { port } from './config/app.json';
-import { options } from './swagger';
+import { port } from './config/defaults.json';
+import { options } from './config/swagger';
 
 export class App {
   private app: express.Application;
@@ -34,6 +34,7 @@ export class App {
   private loadServices(): void {
     this.app.use(cors());
     this.app.use(morgan('dev'));
+    this.app.use(express.urlencoded({ extended: false }));
     this.app.use(express.json());
 
     const specs = swaggerJsDoc(options);

@@ -1,9 +1,10 @@
 import { AfterAll, BeforeAll, Given, Then } from '@cucumber/cucumber';
 import assert from 'assert';
-import express from 'express';
 import request from 'supertest';
+import { container } from 'tsyringe';
 
 import { App } from '../../../app';
+import { setupDependencies } from '../../../services/dependencyInjection';
 
 let _request: request.Test;
 let _response: request.Response;
@@ -24,7 +25,8 @@ Then('the response should be:', async (response: string) => {
 });
 
 BeforeAll(() => {
-  app = new App(express());
+  setupDependencies();
+  app = container.resolve(App);
   app.start();
 });
 

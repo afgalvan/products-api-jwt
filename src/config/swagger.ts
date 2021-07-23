@@ -1,11 +1,11 @@
-import { description, version } from '../package.json';
-import { port } from './config/app.json';
+import { description, version } from '../../package.json';
+import { port } from './defaults.json';
 
 export const options = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'Template API',
+      title: 'Products API',
       version: version,
       description: description,
     },
