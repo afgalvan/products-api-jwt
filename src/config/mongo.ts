@@ -8,7 +8,7 @@ interface MongoConfig {
 
 const mongo: Record<string, MongoConfig> = {
   development: {
-    uri: mongoUri,
+    uri: process.env.MONGODB_URI || mongoUri,
   },
   production: {
     uri: '', // Mongo Atlas URI

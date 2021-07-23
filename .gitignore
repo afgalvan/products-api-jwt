@@ -1,3 +1,4 @@
+data/*
 *.orig
 
 # Created by git when using merge tools for conflicts
