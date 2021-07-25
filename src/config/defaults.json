@@ -1,5 +1,5 @@
 {
-  "port": 8081,
+  "port": 8000,
   "mongoUri": "mongodb://localhost/products_api",
   "jwtSecret": "3e2a64a814b7d8db3a4832ceb6e43cff"
 }

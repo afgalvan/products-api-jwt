@@ -1,4 +1,4 @@
-Feature: SignIn Feature
+Feature: LogIn Feature
   In order to have access to the api
   As a registered user
   I want to login in the server to see my profile
@@ -27,7 +27,6 @@ Feature: SignIn Feature
     And the response should be:
       """
       {
-        "userId": 1,
         "username": "Bob",
         "email": "bob@bobmail.bob"
       }

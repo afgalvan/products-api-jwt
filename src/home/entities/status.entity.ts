@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-import { ApiStatus } from './../interfaces/status.interface';
+import { ApiStatus } from '../domain/status.interface';
 
 export class Status implements ApiStatus {
   @ApiProperty({ example: 'OK' })

@@ -1,8 +1,8 @@
 import { Controller, Get } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 
+import { ApiStatus } from './domain/status.interface';
 import { Status } from './entities/status.entity';
-import { ApiStatus } from './interfaces/status.interface';
 
 @Controller()
 @ApiTags('Home')
