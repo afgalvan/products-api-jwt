@@ -1,21 +1,15 @@
-import { mongoUri } from '../config/defaults.json';
+import { mongoUri } from './defaults.json';
 
-const env: string = process.env.NODE_ENV || 'development';
-
-interface MongoConfig {
-  uri: string;
+interface MongoCredentials {
+  URI: string;
+  USER: string;
+  PASSWORD: string;
 }
 
-const mongo: Record<string, MongoConfig> = {
-  development: {
-    uri: process.env.MONGODB_URI || mongoUri,
-  },
-  production: {
-    uri: '', // Mongo Atlas URI
-  },
-  docker: {
-    uri: 'mongodb://mongo/products_api',
-  },
+const mongo: MongoCredentials = {
+  URI: process.env.MONGODB_URI || mongoUri,
+  USER: process.env.MONGODB_USER || '',
+  PASSWORD: process.env.MONGODB_PASSWORD || '',
 };
 
-export default mongo[env.toLowerCase()];
+export default mongo;

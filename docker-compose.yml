@@ -10,6 +10,9 @@ services:
       context: .
       dockerfile: dev.dockerfile
     environment:
+      - MONGODB_URI=mongodb://mongo/products_api
+      - MONGODB_USER=
+      - MONGODB_PASSWORD=
       - NODE_ENV=Docker
     volumes:
       - ./src:/app/src
