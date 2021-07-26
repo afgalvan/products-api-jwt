@@ -1,5 +1,5 @@
 import { description, license, licenseUrl, version } from '../../package.json';
-import { port } from './defaults.json';
+import serverConfig from './server.config';
 
 export const swagger = {
   openapi: '3.0.0',
@@ -13,7 +13,7 @@ export const swagger = {
   },
   servers: [
     {
-      url: `http://localhost:${process.env.PORT || port}`,
+      url: `http://localhost:${serverConfig.PORT}`,
     },
   ],
 };
