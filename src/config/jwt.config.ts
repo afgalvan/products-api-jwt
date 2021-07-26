@@ -1,11 +1,9 @@
 import { jwtSecret } from './defaults.json';
 
 interface JwtConfig {
-  SECRET: string;
+  JWT_SECRET: string;
 }
 
-const jwtConfig: JwtConfig = {
-  SECRET: process.env.JWT_SECRET || jwtSecret,
-};
-
-export default jwtConfig;
+export default (): JwtConfig => ({
+  JWT_SECRET: process.env.JWT_SECRET || jwtSecret,
+});

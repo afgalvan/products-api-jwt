@@ -1,7 +1,7 @@
 import { INestApplication, Injectable } from '@nestjs/common';
 import { SwaggerModule } from '@nestjs/swagger';
 
-import { customOptions, options } from './swagger.config';
+import { customOptions, options } from './swagger.options';
 
 @Injectable()
 export class SwaggerBuilder {

@@ -4,8 +4,6 @@ export interface ServerConfig {
   PORT: number | string;
 }
 
-const serverConfig: ServerConfig = {
+export default (): ServerConfig => ({
   PORT: process.env.PORT || port,
-};
-
-export default serverConfig;
+});

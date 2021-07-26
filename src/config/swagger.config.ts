@@ -1,5 +1,8 @@
+import { ConfigService } from '@nestjs/config';
+
 import { description, license, licenseUrl, version } from '../../package.json';
-import serverConfig from './server.config';
+
+const config = new ConfigService();
 
 export const swagger = {
   openapi: '3.0.0',
@@ -13,7 +16,7 @@ export const swagger = {
   },
   servers: [
     {
-      url: `http://localhost:${serverConfig.PORT}`,
+      url: `http://localhost:${config.get('PORT')}`,
     },
   ],
 };

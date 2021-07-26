@@ -1,15 +1,13 @@
 import { mongoUri } from './defaults.json';
 
 interface MongoCredentials {
-  URI: string;
-  USER: string;
-  PASSWORD: string;
+  MONGODB_URI: string;
+  MONGODB_USER: string;
+  MONGODB_PASSWORD: string;
 }
 
-const mongo: MongoCredentials = {
-  URI: process.env.MONGODB_URI || mongoUri,
-  USER: process.env.MONGODB_USER || '',
-  PASSWORD: process.env.MONGODB_PASSWORD || '',
-};
-
-export default mongo;
+export default (): MongoCredentials => ({
+  MONGODB_URI: process.env.MONGODB_URI || mongoUri,
+  MONGODB_USER: process.env.MONGODB_USER || '',
+  MONGODB_PASSWORD: process.env.MONGODB_PASSWORD || '',
+});
