@@ -5,8 +5,11 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 import jwtConfig from '../../config/jwt';
 
 export interface Payload {
-  username: string;
-  email: string;
+  id: string;
+}
+
+interface ValidateResponse {
+  userId: string;
 }
 
 @Injectable()
@@ -19,7 +22,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(payload: Payload): Promise<Payload> {
-    return { username: payload.username, email: payload.email };
+  async validate(payload: Payload): Promise<ValidateResponse> {
+    return { userId: payload.id };
   }
 }

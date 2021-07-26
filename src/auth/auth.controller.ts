@@ -6,13 +6,17 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBadRequestResponse,
+  ApiCreatedResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 
-import { UserResponse } from './../users/response/user.response';
-import { AuthService, Session } from './auth.service';
+import { RequestError } from '../shared/errors/RequestError';
+import { AuthService, Token } from './auth.service';
+import { LoginUser } from './dto/login.request';
+import { CreateUser } from './dto/signup.request';
 import { LocalAuthGuard } from './guards/local-auth.guard';
-import { LoginUser } from './request/login.request';
-import { CreateUser } from './request/signup.request';
 
 @Controller('auth')
 @ApiTags('Auth')
@@ -21,31 +25,39 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('signup')
-  @ApiResponse({
-    status: 201,
+  @ApiCreatedResponse({
     description: 'Register a user',
+    type: Token,
   })
-  async signup(@Body() user: CreateUser): Promise<UserResponse> {
+  @ApiBadRequestResponse({
+    description: 'User credentials are incomplete or already exists',
+    type: RequestError,
+  })
+  async signup(@Body() user: CreateUser): Promise<Token> {
     if (!user.email || !user.password || !user.username) {
       throw new BadRequestException(
         'An email, username, and password are required',
       );
     }
-    const response = await this.authService.userService.saveUser(user);
+    const response = await this.authService.signup(user);
     if (!response) {
-      throw new BadRequestException('Username Email already in use');
+      throw new BadRequestException('Username or email already in use');
     }
 
-    return { username: response.username, email: response.email };
+    return response;
   }
 
   @UseGuards(LocalAuthGuard)
   @Post('login')
-  @ApiResponse({
-    status: 201,
+  @ApiCreatedResponse({
     description: 'Log in a user',
+    type: Token,
   })
-  async login(@Body() user: LoginUser): Promise<Session> {
+  @ApiBadRequestResponse({
+    description: 'User credentials are incomplete',
+    type: RequestError,
+  })
+  async login(@Body() user: LoginUser): Promise<Token> {
     if (!user.usernameOrEmail || !user.password) {
       throw new BadRequestException(
         'An email or username, and a password are required',

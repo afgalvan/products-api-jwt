@@ -22,6 +22,7 @@ export const customOptions: SwaggerCustomOptions = {
 };
 
 export const options = new DocumentBuilder()
+  .addBearerAuth()
   .setTitle(swagger.info.title)
   .setDescription(swagger.info.description)
   .setVersion(swagger.info.version)

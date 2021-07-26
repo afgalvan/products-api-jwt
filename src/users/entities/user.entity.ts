@@ -1,8 +1,9 @@
 import { Prop, Schema } from '@nestjs/mongoose';
 
-@Schema()
+@Schema({ versionKey: false })
 export class User {
-  @Prop({ trim: true })
+  _id?: string;
+  @Prop({ unique: true, trim: true })
   username!: string;
   @Prop({ unique: true, trim: true })
   email!: string;
