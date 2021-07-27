@@ -27,7 +27,8 @@ jobs:
           node-version: ${{ matrix.node }}
 
       - name: 📥 Download deps
-        uses: bahmutov/npm-install@v1
+        run: npm install
+        # uses: bahmutov/npm-install@v1
 
       # - name: 🔎 npm audit
       #   uses: pragatheeswarans/npm-audit-action@v1.0.0
