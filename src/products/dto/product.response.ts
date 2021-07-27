@@ -8,7 +8,7 @@ export class ProductResponse {
   @ApiProperty({ example: 'https://imageurl.jpg', type: 'string(url)' })
   imageUrl!: URL;
   @ApiProperty({ required: false })
-  description!: string;
+  description?: string;
   @ApiProperty()
   price!: number;
 }

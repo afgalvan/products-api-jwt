@@ -8,7 +8,7 @@ export class Product {
   @Prop()
   imageUrl!: URL;
   @Prop()
-  description!: string;
+  description?: string;
   @Prop()
   price!: number;
 }

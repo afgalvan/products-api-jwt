@@ -1,4 +1,12 @@
-import { Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import {
   ApiBadRequestResponse,
   ApiBearerAuth,
@@ -13,10 +21,13 @@ import { JwtAuthGuard } from './../auth/guards/jwt-auth.guard';
 import { RequestError } from './../shared/errors/RequestError';
 import { CreateProduct } from './dto/product.request';
 import { ProductResponse } from './dto/product.response';
+import { ProductsService } from './products.service';
 
 @Controller('products')
 @ApiTags('Products')
 export class ProductsController {
+  constructor(private readonly productService: ProductsService) {}
+
   @ApiOkResponse({
     description: '',
     type: [ProductResponse],
@@ -55,8 +66,18 @@ export class ProductsController {
   })
   @UseGuards(JwtAuthGuard)
   @Post()
-  createProduct(@Param() product: CreateProduct): void {
-    console.log(product);
-    return;
+  async createProduct(
+    @Body() product: CreateProduct,
+  ): Promise<ProductResponse> {
+    if (!product.name || !product.imageUrl) {
+      throw new BadRequestException(
+        'Request does not have all the required fields',
+      );
+    }
+    if (!product.price) {
+      throw new BadRequestException('The price should not be more than 0');
+    }
+
+    return this.productService.saveProduct(product);
   }
 }
