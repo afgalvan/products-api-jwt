@@ -8,4 +8,4 @@ RUN yarn
 
 COPY . .
 
-CMD [ "yarn", "dev" ]
+ENTRYPOINT [ "yarn" ]

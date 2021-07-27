@@ -3,9 +3,11 @@ version: '3.9'
 
 services:
   api:
-    container_name: node_products_api
-    image: node_products_api
+    container_name: node_products_api_dev
+    image: node_products_api_dev
     restart: always
+    depends_on:
+      - mongodb
     build:
       context: .
       dockerfile: dev.dockerfile
@@ -18,6 +20,7 @@ services:
       - ./src:/app/src
     ports:
       - 8000:8000
+    command: ['start:dev']
 
   nginx:
     container_name: products_api_proxy
@@ -31,7 +34,7 @@ services:
     depends_on:
       - api
 
-  mongo:
+  mongodb:
     container_name: products_api_mongo_db
     image: mongo:4.0.26-xenial
     volumes:
