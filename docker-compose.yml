@@ -12,12 +12,13 @@ services:
       context: .
       dockerfile: dev.dockerfile
     environment:
-      - MONGODB_URI=mongodb://mongo/products_api
+      - MONGODB_URI=mongodb://mongodb/products_api
       - MONGODB_USER=
       - MONGODB_PASSWORD=
       - NODE_ENV=Docker
     volumes:
       - ./src:/app/src
+      - ./__test__:/app/__test__
     ports:
       - 8000:8000
     command: ['start:dev']
