@@ -1,5 +1,5 @@
-Feature: LogIn Feature
-  In order to have access to the api
+Feature: Log in Feature
+  In order to have access to the API
   As a registered user
   I want to login in the server to see my profile
 
@@ -12,7 +12,6 @@ Feature: LogIn Feature
         "password": "passbob"
       }
       """
-
     And I send a POST request to "/auth/login" with body:
       """
       {
@@ -22,7 +21,7 @@ Feature: LogIn Feature
       """
     Then the response status code should be 201
 
-    And I send a GET request to "/profile"
+    When I send a GET request to "/profile"
     Then the response status code should be 200
     And the response should be:
       """
@@ -33,7 +32,7 @@ Feature: LogIn Feature
       """
 
   Scenario: A non existing user
-    And I send a POST request to "/auth/login" with body:
+    Given I send a POST request to "/auth/login" with body:
       """
       {
         "usernameOrEmail": "Rick",
@@ -42,5 +41,5 @@ Feature: LogIn Feature
       """
     Then the response status code should be 401
 
-    And I send a GET request to "/profile"
+    When I send a GET request to "/profile"
     Then the response status code should be 401

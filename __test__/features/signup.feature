@@ -33,7 +33,7 @@ Feature: SignUp Feature
         "password": "passbob"
       }
       """
-    And I send a POST request to "/auth/signup" with body:
+    When I send a POST request to "/auth/signup" with body:
       """
       {
         "username": "Bob",
