@@ -3,6 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 
 import { AuthModule } from './auth/auth.module';
+import jwtConfig from './config/jwt.config';
 import mongoConfig from './config/mongo.config';
 import serverConfig from './config/server.config';
 import { HomeModule } from './home/home.module';
@@ -13,7 +14,7 @@ import { UsersModule } from './users/users.module';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [serverConfig, mongoConfig],
+      load: [serverConfig, mongoConfig, jwtConfig],
     }),
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
