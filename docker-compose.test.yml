@@ -5,6 +5,8 @@ services:
   api:
     container_name: node_products_api_test
     image: node_products_api_test
+    volumes:
+      - ./__test__:/app/__test__
     command: ['test']
 
   mongodb:
