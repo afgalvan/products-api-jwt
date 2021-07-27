@@ -15,7 +15,7 @@
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/src/main",
     "lint": "eslint \"{src,apps,libs,__test__}/**/*.ts\" --fix",
-    "test": "npm run test:unit && npm run test:features",
+    "test": "yarn test:unit && yarn test:features",
     "test:features": "cucumber-js -p api",
     "test:unit": "jest",
     "test:watch": "jest --watch",
