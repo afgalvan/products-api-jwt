@@ -13,7 +13,7 @@ Feature: LogIn Feature
       }
       """
 
-    And I send a POST request to "/auth/signin" with body:
+    And I send a POST request to "/auth/login" with body:
       """
       {
         "usernameOrEmail": "Bob",
@@ -32,15 +32,15 @@ Feature: LogIn Feature
       }
       """
 
-  Scenario: A non existing username
-    And I send a POST request to "/auth/signin" with body:
+  Scenario: A non existing user
+    And I send a POST request to "/auth/login" with body:
       """
       {
-        "usernameOrEmail": "Bob",
-        "password": "passbob"
+        "usernameOrEmail": "Rick",
+        "password": "Morty"
       }
       """
-    Then the response status code should be 400
+    Then the response status code should be 401
 
     And I send a GET request to "/profile"
-    Then the response status code should be 302
+    Then the response status code should be 401

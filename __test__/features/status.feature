@@ -12,6 +12,6 @@ Feature: Api status
         "status": "OK",
         "isOn": true,
         "documentation": "http://localhost:8000/docs",
-        "repository": "https://github.com/afgalvan/create-app-templates"
+        "repository": "https://github.com/afgalvan/products-api-jwt"
       }
       """

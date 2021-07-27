@@ -64,6 +64,7 @@
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "jest": "27.0.6",
+    "mongodb-memory-server": "^7.3.2",
     "openapi-types": "^9.1.0",
     "prettier": "^2.3.2",
     "supertest": "^6.1.3",
