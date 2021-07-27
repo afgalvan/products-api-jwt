@@ -3,6 +3,7 @@ import {
   Body,
   Controller,
   Get,
+  NotFoundException,
   Param,
   Post,
   UseGuards,
@@ -33,8 +34,8 @@ export class ProductsController {
     type: [ProductResponse],
   })
   @Get()
-  getProducts(): void {
-    return;
+  getProducts(): Promise<ProductResponse[]> {
+    return this.productService.getProducts();
   }
 
   @ApiOkResponse({
@@ -46,9 +47,13 @@ export class ProductsController {
     type: RequestError,
   })
   @Get(':id')
-  getProductById(@Param('id') id: string): void {
-    console.log(id);
-    return;
+  async getProductById(@Param('id') id: string): Promise<ProductResponse> {
+    const product = await this.productService.getProductById(id);
+    if (!product) {
+      throw new NotFoundException('The product was not found');
+    }
+
+    return product;
   }
 
   @ApiBearerAuth()
@@ -66,9 +71,7 @@ export class ProductsController {
   })
   @UseGuards(JwtAuthGuard)
   @Post()
-  async createProduct(
-    @Body() product: CreateProduct,
-  ): Promise<ProductResponse> {
+  createProduct(@Body() product: CreateProduct): Promise<ProductResponse> {
     if (!product.name || !product.imageUrl) {
       throw new BadRequestException(
         'Request does not have all the required fields',
