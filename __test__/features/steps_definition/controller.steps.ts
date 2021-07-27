@@ -26,13 +26,15 @@ Given('I send a GET request to {string}', (route: string) => {
   _request = request(app.getHttpServer())
     .get(route)
     .set('Authorization', 'Bearer ' + _token);
-  _token = null;
 });
 
 Given(
   'I send a POST request to {string} with body:',
   async (route: string, body: string) => {
-    _request = request(app.getHttpServer()).post(route).send(JSON.parse(body));
+    _request = request(app.getHttpServer())
+      .post(route)
+      .set('Authorization', 'Bearer ' + _token)
+      .send(JSON.parse(body));
     _token = (await _request).body.token;
   },
 );
@@ -42,8 +44,11 @@ Then('the response status code should be {int}', async (status: number) => {
 });
 
 Then('the response should be:', async (response: string) => {
-  const expectedResponse = JSON.parse(response);
   _response = await _request;
+  const expectedResponse = JSON.parse(response);
+  if (expectedResponse['0']) {
+    expectedResponse['0']._id = _response.body['0']._id;
+  }
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { _id, ...actualResponse } = _response.body;
   assert.deepStrictEqual(actualResponse, expectedResponse);
