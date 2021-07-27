@@ -10,7 +10,7 @@ async function bootstrap() {
   const swaggerBuilder = await app.resolve(SwaggerBuilder);
   const configService = await app.resolve(ConfigService);
 
-  swaggerBuilder.buildSwaggerUI(app);
+  swaggerBuilder.buildSwaggerUI(app, configService.get('PORT'));
   app.enableCors();
 
   await app.listen(configService.get('PORT') || port);

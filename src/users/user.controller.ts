@@ -8,15 +8,16 @@ import {
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
-  ApiCreatedResponse,
   ApiNotFoundResponse,
+  ApiOkResponse,
   ApiTags,
+  ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { UserResponse } from '../shared/dto/user.response';
 import { RequestError } from '../shared/errors/RequestError';
-import { User } from './entities/user.entity';
+import { User } from './domain/user';
 import { UserService } from './user.service';
 
 interface IdRequest {
@@ -36,12 +37,16 @@ export class UserController {
 
   @UseGuards(JwtAuthGuard)
   @Get()
-  @ApiCreatedResponse({
+  @ApiOkResponse({
     description: 'Current logged user data',
     type: UserResponse,
   })
   @ApiNotFoundResponse({
     description: 'The user requested was not found',
+    type: RequestError,
+  })
+  @ApiUnauthorizedResponse({
+    description: 'The user does not have access to the profile',
     type: RequestError,
   })
   async getProfile(@Req() req: ProfileRequest): Promise<User> {

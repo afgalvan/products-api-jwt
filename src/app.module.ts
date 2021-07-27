@@ -7,6 +7,7 @@ import jwtConfig from './config/jwt.config';
 import mongoConfig from './config/mongo.config';
 import serverConfig from './config/server.config';
 import { HomeModule } from './home/home.module';
+import { ProductsModule } from './products/products.module';
 import { SwaggerBuilder } from './swagger/swagger.builder';
 import { UsersModule } from './users/users.module';
 
@@ -29,6 +30,7 @@ import { UsersModule } from './users/users.module';
     HomeModule,
     UsersModule,
     AuthModule,
+    ProductsModule,
   ],
   providers: [ConfigService],
 })

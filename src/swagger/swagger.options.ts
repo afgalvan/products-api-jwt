@@ -1,6 +1,11 @@
-import { DocumentBuilder, SwaggerDocumentOptions } from '@nestjs/swagger';
+import {
+  DocumentBuilder,
+  OpenAPIObject,
+  SwaggerDocumentOptions,
+} from '@nestjs/swagger';
 
-import { swagger } from '../config/swagger.config';
+import { Port } from './swagger.builder';
+import { swagger } from './swagger.config';
 
 export interface SwaggerCustomOptions extends SwaggerDocumentOptions {
   explorer?: boolean;
@@ -16,16 +21,19 @@ export interface SwaggerCustomOptions extends SwaggerDocumentOptions {
   urls?: Record<'url' | 'name', string>[];
 }
 
-export const customOptions: SwaggerCustomOptions = {
+export const customOptions = (port?: Port): SwaggerCustomOptions => ({
   customSiteTitle: 'API Docs',
-  path: swagger.basePath,
-};
+  path: swagger(port).basePath,
+});
 
-export const options = new DocumentBuilder()
-  .addBearerAuth()
-  .setTitle(swagger.info.title)
-  .setDescription(swagger.info.description)
-  .setVersion(swagger.info.version)
-  .setLicense(swagger.info.license, swagger.info.licenseUrl)
-  .addServer(swagger.servers[0].url)
-  .build();
+export const options = (port?: Port): Omit<OpenAPIObject, 'paths'> => {
+  const config = swagger(port);
+  return new DocumentBuilder()
+    .addBearerAuth()
+    .setTitle(config.title)
+    .setDescription(config.description)
+    .setVersion(config.version)
+    .setLicense(config.license, config.licenseUrl)
+    .addServer(config.servers[0].url)
+    .build();
+};
