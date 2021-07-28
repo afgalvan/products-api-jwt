@@ -1,4 +1,4 @@
-import { Product } from 'src/products/domain/product';
+import { Product } from '../../domain/product';
 
 export const productStub = (): Product => ({
   _id: 'd123',

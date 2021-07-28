@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
+import { CreateProduct } from '../dto/product.request';
+import { ProductResponse } from '../dto/product.response';
 import { ProductsController } from '../products.controller';
 import { ProductsService } from '../products.service';
-import { CreateProduct } from './../dto/product.request';
-import { ProductResponse } from './../dto/product.response';
 import { productStub } from './stubs/product.stub';
 
 jest.mock('../products.service');

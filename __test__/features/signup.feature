@@ -1,4 +1,4 @@
-Feature: SignUp Feature
+Feature: Signup
   In order to have access to the api features
   As an unregistered person
   I want to register as new user in the server
@@ -42,5 +42,3 @@ Feature: SignUp Feature
       }
       """
     Then the response status code should be 400
-
-

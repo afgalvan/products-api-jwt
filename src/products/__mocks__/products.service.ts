@@ -1,4 +1,4 @@
-import { productStub } from '../test/stubs/product.stub';
+import { productStub } from '../__test__/stubs/product.stub';
 
 export const ProductsService = jest.fn().mockReturnValue({
   getProductById: jest.fn().mockResolvedValue(productStub()),

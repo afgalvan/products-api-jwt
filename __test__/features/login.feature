@@ -1,4 +1,4 @@
-Feature: Log in Feature
+Feature: Login
   In order to have access to the API
   As a registered user
   I want to login in the server to see my profile

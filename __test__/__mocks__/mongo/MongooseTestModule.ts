@@ -2,7 +2,6 @@
 import { DynamicModule } from '@nestjs/common';
 import { MongooseModule, MongooseModuleOptions } from '@nestjs/mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
-import { exit } from 'process';
 
 let mongod: MongoMemoryServer;
 
@@ -11,7 +10,7 @@ export const rootMongooseTestModule = (
 ): DynamicModule => {
   return MongooseModule.forRootAsync({
     useFactory: async () => {
-      const mongod = await MongoMemoryServer.create();
+      mongod = await MongoMemoryServer.create();
 
       return {
         uri: mongod.getUri(),
@@ -21,11 +20,10 @@ export const rootMongooseTestModule = (
   });
 };
 
-export const stopInMemoryMongo = async (): Promise<void> => {
+export const stopInMemoryMongoDB = async (): Promise<void> => {
   if (mongod) {
-    mongod.stop(true);
+    await mongod.stop(true);
   }
-  setTimeout(() => exit(0), 300);
 };
 
 export const mongodb = (): MongoMemoryServer => mongod;
