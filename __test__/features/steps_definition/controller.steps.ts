@@ -40,7 +40,7 @@ Given('the following user already exists:', async (user: string) => {
   userService.saveUser(userJson);
 });
 
-Given('the following product already exists:', async (product: string) => {
+Given('the following product exists:', async (product: string) => {
   const productService = await app.resolve(ProductsService);
 
   const storedProduct = await productService.getProducts();
@@ -76,10 +76,12 @@ Then('the response status code should be {int}', async (status: number) => {
 Then('the response should be:', async (response: string) => {
   _response = await _request;
   const expectedResponse = JSON.parse(response);
-  if (expectedResponse['0']) {
-    expectedResponse['0']._id = _response.body['0']._id;
+  if (expectedResponse[0]) {
+    expectedResponse[0]._id = _response.body[0]._id;
   }
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { _id, ...actualResponse } = _response.body;
-  assert.deepStrictEqual(actualResponse, expectedResponse);
+  if (expectedResponse._id) {
+    expectedResponse._id = _response.body._id;
+  }
+
+  assert.deepStrictEqual(_response.body, expectedResponse);
 });

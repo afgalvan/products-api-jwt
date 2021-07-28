@@ -26,6 +26,7 @@ Feature: Login
     And the response should be:
       """
       {
+        "_id": "{id}",
         "username": "Bob",
         "email": "bob@bobmail.bob"
       }
